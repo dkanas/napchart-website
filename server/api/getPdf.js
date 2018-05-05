@@ -56,18 +56,21 @@ module.exports = function (req, res) {
     const sleepingTime = getSleepingTime(response.chartData.elements)
     const awakeTime = getAwakeTime(response.chartData.elements)
 
+    canvas.toBuffer((err, buf) => {
+      if (err) throw new Error(err)
 
-    doc
-      .fontSize(30)
-      .text('Napchart', { align: 'center' })
-      .moveDown()
-      .image(canvas.toBuffer(), { scale: 0.33 })
-      .fontSize(20)
-      .moveDown()
-      .text(`Sleeping: ${timeToStr(sleepingTime)}`)
-      .text(`Awake: ${timeToStr(awakeTime)}`)
-      .pipe(res)
+      doc
+        .fontSize(30)
+        .text('Napchart', { align: 'center' })
+        .moveDown()
+        .image(buf, { scale: 0.33 })
+        .fontSize(20)
+        .moveDown()
+        .text(`Sleeping: ${timeToStr(sleepingTime)}`)
+        .text(`Awake: ${timeToStr(awakeTime)}`)
+        .pipe(res)
 
-    doc.end()
+        doc.end()
+    })
 	})
 }
