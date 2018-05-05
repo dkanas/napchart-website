@@ -109,6 +109,7 @@ app.post('/api/create', api.create)
 app.post('/api/postFeedback', api.postFeedback)
 app.get('/api/get', api.get)
 app.get('/api/getImage', api.getImage)
+app.get('/api/getPdf', api.getPdf)
 
 app.post('/auth/signup', auth.signup)
 app.post('/auth/login', auth.login)
